@@ -4,10 +4,11 @@ from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 from .DocxIngestor import DocxIngestor
 from .CSVIngestor import CSVIngestor
+from .PDFIngestor import PDFIngestor
 from .TXTIngestor import TXTIngestor
 
 
-class Ingestor(ImportInterface):
+class Ingestor(IngestorInterface):
     Ingestors = [DocxIngestor, CSVIngestor, PDFIngestor, TXTIngestor]
 
     @classmethod

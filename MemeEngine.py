@@ -25,11 +25,12 @@ class MemeEngine:
             height = int(ratio*float(img.size[1]))
             img = img.resize((width, height), Image.NEAREST)
 
-        if test and author:
+        if text is not None:
             draw = ImageDraw.Draw(img)
-            font = ImageFont.truetype(size=20)
+            font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
             quote_model = QuoteModel(text, author)
             draw.text((10, 30), quote_model.quote(), font=font, fill='white')
 
         img.save(self.output_dir)
+
         return self.output_dir

@@ -3,7 +3,7 @@ from typing import List
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 
-class CSVIngestor(IngestorInterface):
+class TXTIngestor(IngestorInterface):
     allowed_extensions = ['txt']
 
     @classmethod
@@ -14,7 +14,7 @@ class CSVIngestor(IngestorInterface):
         quotes = []
         with open(path, 'r') as infile:
             for line in infile.readlines():
-                 line = line.strip('\n').split(',')
+                 line = line.split(' - ')
                  new_quote = QuoteModel(line[0], line[1])
                  quotes.append(new_quote)
 
