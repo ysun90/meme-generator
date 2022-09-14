@@ -4,6 +4,7 @@ from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 from .DocxIngestor import DocxIngestor
 from .CSVIngestor import CSVIngestor
+from .TXTIngestor import TXTIngestor
 
 
 class Ingestor(ImportInterface):

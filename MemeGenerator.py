@@ -18,7 +18,7 @@ class MemeEngine:
         Returns:
             str -- the file path to the output image.
         """
-        img = Image.open(in_path)
+        img = Image.open(img_path)
 
         if width is not None:
             ratio = width/float(img.size[0])

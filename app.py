@@ -5,6 +5,7 @@ from flask import Flask, render_template, abort, request
 
 # @TODO Import your Ingestor and MemeEngine classes
 from QuoteEngine import Ingestor
+from MemeGenerator import MemeEngine
 
 app = Flask(__name__)
 
@@ -21,13 +22,17 @@ def setup():
 
     # TODO: Use the Ingestor class to parse all files in the
     # quote_files variable
-    quotes = None
+    quotes = []
+    for f in quote_files:
+        quotes.extend(Ingestor.parse(f))
 
     images_path = "./_data/photos/dog/"
 
     # TODO: Use the pythons standard library os class to find all
     # images within the images images_path directory
-    imgs = None
+    imgs = []
+    for root, dirs, files in os.walk(images):
+        imgs = [os.path.join(root, name) for name in files]
 
     return quotes, imgs
 
@@ -44,8 +49,8 @@ def meme_rand():
     # 1. select a random image from imgs array
     # 2. select a random quote from the quotes array
 
-    img = None
-    quote = None
+    img = random.choice(imgs)
+    quote = random.choice(quotes)
     path = meme.make_meme(img, quote.body, quote.author)
     return render_template('meme.html', path=path)
 
@@ -67,7 +72,19 @@ def meme_post():
     #    file and the body and author form paramaters.
     # 3. Remove the temporary saved image.
 
-    path = None
+    path = input("Please give a image url: ")
+
+    r = requests.get(path)
+    tmp = f'./tmp/{random.randint(0,100000000)}.png'
+
+    with open(tmp, 'wb') as img:
+        img.write(r.content)
+
+    body = input("Please give the quote: ")
+    author = input("Please give the author: ")
+    path = meme.make_meme(tmp, body, author)
+
+    os.remove(tmp)
 
     return render_template('meme.html', path=path)
 
