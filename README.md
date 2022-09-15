@@ -11,6 +11,7 @@ quote.
 
 The program was developed with python3.9, with the following dependencies:
 
+```
 certifi==2022.6.15.1
 charset-normalizer==2.1.1
 click==8.1.3
@@ -32,6 +33,7 @@ six==1.16.0
 urllib3==1.26.12
 Werkzeug==2.2.2
 zipp==3.8.1
+```
 
 The program have two running modes: command-line interface (CLI) and flask app.
 
