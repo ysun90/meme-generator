@@ -5,6 +5,6 @@ venv/
 tmp/*.txt
 tmp/*.png
 
-#static/*.png
+static/*.png
 
 .DS_Store
