@@ -1,14 +1,24 @@
+"""CSVIngestor module ingest .csv files."""
+
 from typing import List
 import pandas
 
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 
+
 class CSVIngestor(IngestorInterface):
+    """An ingestor class for CSV files."""
+
     allowed_extensions = ['csv']
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse contents of files.
+
+        param path: location of the file
+        return: a collection of QuoteModel
+        """
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 

@@ -1,10 +1,19 @@
+"""Meme Engine Module manipulates and draws text onto images."""
 
 from PIL import Image, ImageDraw, ImageFont
 
 from QuoteEngine import QuoteModel
 
+
 class MemeEngine:
+    """A MemeEngine class."""
+
     def __init__(self, output_dir):
+        """Instantiate the class.
+
+        param output_dir: location to put the putput picture
+        return: None
+        """
         self.output_dir = output_dir
 
     def make_meme(self, img_path, text, author, width=500) -> str:
@@ -18,7 +27,14 @@ class MemeEngine:
         Returns:
             str -- the file path to the output image.
         """
-        img = Image.open(img_path)
+        try:
+            img = Image.open(img_path)
+        except Exception as e:
+            print("Cannot open the file exception.")
+
+        # Picture with most width 500
+        if width > 500:
+            width = 500
 
         if width is not None:
             ratio = width/float(img.size[0])
