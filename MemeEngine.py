@@ -31,6 +31,7 @@ class MemeEngine:
             quote_model = QuoteModel(text, author)
             draw.text((10, 30), quote_model.quote(), font=font, fill='white')
 
+        print(self.output_dir)
         img.save(self.output_dir)
 
         return self.output_dir

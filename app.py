@@ -9,7 +9,7 @@ from MemeEngine import MemeEngine
 
 app = Flask(__name__)
 
-meme = MemeEngine('./static')
+meme = MemeEngine('./static/out.png')
 
 
 def setup():
@@ -31,7 +31,7 @@ def setup():
     # TODO: Use the pythons standard library os class to find all
     # images within the images images_path directory
     imgs = []
-    for root, dirs, files in os.walk(images):
+    for root, dirs, files in os.walk(images_path):
         imgs = [os.path.join(root, name) for name in files]
 
     return quotes, imgs
@@ -72,16 +72,16 @@ def meme_post():
     #    file and the body and author form paramaters.
     # 3. Remove the temporary saved image.
 
-    path = input("Please give a image url: ")
+    img_url = request.form['image_url']
+    body = request.form['body']
+    author = request.form['author']
 
-    r = requests.get(path)
+    response = requests.get(img_url)
     tmp = f'./tmp/{random.randint(0,100000000)}.png'
 
     with open(tmp, 'wb') as img:
-        img.write(r.content)
+        img.write(response.content)
 
-    body = input("Please give the quote: ")
-    author = input("Please give the author: ")
     path = meme.make_meme(tmp, body, author)
 
     os.remove(tmp)
