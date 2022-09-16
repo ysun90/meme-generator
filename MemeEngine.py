@@ -1,6 +1,7 @@
 """Meme Engine Module manipulates and draws text onto images."""
 
 from PIL import Image, ImageDraw, ImageFont
+import random
 
 from QuoteEngine import QuoteModel
 
@@ -45,7 +46,9 @@ class MemeEngine:
             draw = ImageDraw.Draw(img)
             font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
             quote_model = QuoteModel(text, author)
-            draw.text((10, 30), quote_model.quote(), font=font, fill='white')
+            x = random.randint(10, 100)
+            y = random.randint(10, int(img.size[1])-10)
+            draw.text((x, y), quote_model.quote(), font=font, fill='white')
 
         img.save(self.output_dir)
 
