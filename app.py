@@ -13,7 +13,7 @@ from MemeEngine import MemeEngine
 
 app = Flask(__name__)
 
-meme = MemeEngine('./static/out.png')
+meme = MemeEngine('./static')
 
 
 def setup():

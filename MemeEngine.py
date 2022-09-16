@@ -2,6 +2,7 @@
 
 from PIL import Image, ImageDraw, ImageFont
 import random
+import textwrap
 
 from QuoteEngine import QuoteModel
 
@@ -45,11 +46,24 @@ class MemeEngine:
         if text is not None:
             draw = ImageDraw.Draw(img)
             font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
+
+            # Get quote
             quote_model = QuoteModel(text, author)
+            quote = quote_model.quote()
+
+            # Wrap quote
+            wrapper = textwrap.TextWrapper(width=40)
+            quote_wrapped = wrapper.fill(text=quote)
+
+            # Randomize quote location
             x = random.randint(10, 100)
-            y = random.randint(10, int(img.size[1])-10)
-            draw.text((x, y), quote_model.quote(), font=font, fill='white')
+            y = random.randint(10, int(img.size[1])-20)
 
-        img.save(self.output_dir)
+            draw.text((x, y), quote_wrapped, font=font, fill='white')
 
-        return self.output_dir
+
+        # Create a random name to add to finished meme
+        tmp = f'{self.output_dir}/{random.randint(0,100000000)}.png'
+        img.save(tmp)
+
+        return tmp
