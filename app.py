@@ -61,11 +61,17 @@ def meme_post():
     body = request.form['body']
     author = request.form['author']
 
-    response = requests.get(img_url)
+    # Handle invalid image URL
+    try:
+        response = requests.get(img_url).content
+    except Exception as e:
+        print("Please give a valid image URL.")
+        return render_template('meme_error.html')
+
     tmp = f'./tmp/{random.randint(0,100000000)}.png'
 
     with open(tmp, 'wb') as img:
-        img.write(response.content)
+        img.write(response)
 
     path = meme.make_meme(tmp, body, author)
 
